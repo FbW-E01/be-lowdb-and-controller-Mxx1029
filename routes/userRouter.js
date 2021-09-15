@@ -1,27 +1,32 @@
 import express from 'express';
+import { usersGet, usersPost, usersPut, usersDelete } from '../controllers/userController.js';
+import { usersReqHandler } from '../middlewares/usersReqHandler.js';
 
-const userRouter = express.Router();
+const usersRouter = express.Router();
 
-// Add custom middleware JUST for the user routes
-userRouter.use((req,res,next) => {
-    console.log(" [UserRoute] " + req.method + " " + req.url);
-    next();
-});
+// Add middleware JUST for the user routes
+usersRouter.use(usersReqHandler);
 
-userRouter.get("/", (req, res) => { res.send("Users root path"); });
-userRouter.post("/", (req, res) => { res.send("Users root path POST") });
-userRouter.get("/about", (req, res) => { res.send("Users About path") });
-userRouter.get("/details", (req, res, next) => {
-    // Local error handler
-    try {
-        res.send(details);
-    } catch (err) {
-        console.log("Whoops!!!!!!!!!!!!!!!!!!");
-        console.log("Attempted to print details, this sometimes fails!!!!");
+usersRouter.get("/", usersGet);
+usersRouter.post("/", usersPost);
+usersRouter.put("/:id", usersPut);
+usersRouter.delete("/:id", usersDelete);
 
-        err.message = "Getting details failed, this just fails sometimes, sowwy";
-        next(err);
-    }
-});
+// first try to get something
+// userRouter.get("/", (req, res) => { res.send("Users root path"); });
+// userRouter.post("/", (req, res) => { res.send("Users root path POST") });
+// userRouter.get("/about", (req, res) => { res.send("Users About path") });
+// userRouter.get("/details", (req, res, next) => {
+//     // Local error handler
+//     try {
+//         res.send(details);
+//     } catch (err) {
+//         console.log("Whoops!!!!!!!!!!!!!!!!!!");
+//         console.log("Attempted to print details, this sometimes fails!!!!");
 
-export default userRouter;
+//         err.message = "Getting details failed, this just fails sometimes, sowwy";
+//         next(err);
+//     }
+// });
+
+export default usersRouter;

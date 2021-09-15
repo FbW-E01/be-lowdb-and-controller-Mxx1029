@@ -1,9 +1,9 @@
-import { getData, writeData } from '../data.js';
+import { getData, writeData, updatePost, deletePost } from '../data.js';
 
 export function postsGet(req, res) {
     const data = getData();
     res.json(data.posts);
-}
+};
 
 export function postsPost(req, res) {
     const post = req.body;
@@ -21,18 +21,16 @@ export function postsPost(req, res) {
 export function postsPut(req, res) {
     const id = parseInt(req.params.id);
 
-    updatePost(id, req.body);
+    updatePost(id, req);
 
-    res.json(updatedData);
+    res.json(req.body);
 }
 
-// Fat Controller, Skinny Model
+// Fat Controller, Skinny Model would be, to have all the functionality here in the backend (Controller), instead of in the database (Modell)
+// this now is also:
+// Skinny Controller, Fat Model
 export function postsDelete(req, res) {
     const id = parseInt(req.params.id);
 
-    const data = getData();
-    data.posts = data.posts.filter(post => post.id !== id);
-    writeData(data);
-
-    res.json({ "deleted": id });
+    deletePost(id, res);
 }

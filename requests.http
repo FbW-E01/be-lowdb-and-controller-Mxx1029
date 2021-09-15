@@ -2,11 +2,11 @@ GET http://localhost:3012/posts
 
 ###
 
-DELETE http://localhost:3012/posts/5610612881721
+DELETE http://localhost:3012/posts/2369651772980
 
 ### 
 
-PUT http://localhost:3012/posts/6938841965853
+PUT http://localhost:3012/posts/677348613752
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ POST http://localhost:3012/posts
 Content-Type: application/json
 
 {
-    "content": "Hello this is a test 3"
+    "content": "Hello this is a test 2"
 }
 
 ###
@@ -30,17 +30,38 @@ GET http://localhost:3012/users/
 
 ###
 
+DELETE http://localhost:3012/users/6995
+
+### 
+
+PUT http://localhost:3012/users/6995
+Content-Type: application/json
+
+{
+    "name": "New updated Testuser",
+    "isAdmin": true,
+    "role": "admin"
+}
+
+###
+
 POST http://localhost:3012/users/
+Content-Type: application/json
+
+{
+    "name": "Testuser",
+    "role": "user",
+    "isAdmin": false
+}
+
 
 ### 
 
 GET http://localhost:3012/users/about
 
-
-### 
+###
 
 GET http://localhost:3012/users/details
-
 
 ###
 
